@@ -4,7 +4,6 @@ class Transaction < ApplicationRecord
   monetize :amount_cents
   has_one :user, through: :account
   validates :datetime, :info, :amount_cents, presence: true
-  validates :csv_row_id, uniqueness: { scope: :account, message: "transaction allready exists" }
   after_save :auto_categorize
 
   def auto_categorize

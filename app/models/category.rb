@@ -1,8 +1,8 @@
 class Category < ApplicationRecord
   belongs_to :user
   belongs_to :icon
-  has_many :transactions
-  has_many :budgets
+  has_many :transactions, dependent: :destroy
+  has_many :budgets, dependent: :destroy
   validates :name, :color, presence: true
 
   def self.income

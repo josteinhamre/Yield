@@ -5,7 +5,7 @@
 
     <p class="define-category">My categories:</p>
     <div class="my-categories">
-      <% current_user.categories.each do |category| %>
+      <% User.first.categories.each do |category| %>
       <% unless category.no_cat? %>
       <%= render 'components/category', category: category %>
       <% end %>

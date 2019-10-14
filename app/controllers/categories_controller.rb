@@ -19,10 +19,10 @@ class CategoriesController < ApplicationController
     get_budgets
     get_transactions
   end
-  
+
   def create
     @category = Category.new(category_params)
-    @category.user = current_user
+    @category.user = User.first
     @category.save
     respond_to do |format|
       format.html { redirect_to profile_path }

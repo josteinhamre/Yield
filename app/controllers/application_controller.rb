@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :define_month
 
@@ -37,7 +36,7 @@ class ApplicationController < ActionController::Base
         AND extract(year from month_from) = ? \
       "
     month_as_date = Date.parse("1 #{@selected_month}")
-    @budgets = current_user.budgets.where(sql_query, month_as_date.month, month_as_date.year)
+    @budgets = User.first.budgets.where(sql_query, month_as_date.month, month_as_date.year)
   end
 
   def get_transactions
@@ -46,7 +45,7 @@ class ApplicationController < ActionController::Base
         AND extract(year from datetime) = ? \
       "
     date = Date.parse("1 #{@selected_month}")
-    @transactions = current_user.transactions.where(sql_query, date.month, date.year)
+    @transactions = User.first.transactions.where(sql_query, date.month, date.year)
   end
 
   def get_transactions_no_income
@@ -55,7 +54,7 @@ class ApplicationController < ActionController::Base
         AND extract(year from datetime) = ? \
       "
     date = Date.parse("1 #{@selected_month}")
-    @transactions_no_income = current_user.transactions.where(sql_query, date.month, date.year).where.not(category: current_user.income_cat)
+    @transactions_no_income = User.first.transactions.where(sql_query, date.month, date.year).where.not(category: User.first.income_cat)
   end
 end
 

@@ -17,7 +17,7 @@
       </div>
       <div class="info-card" data-id="income">
         <h5>Income:</h5>
-        <h5 id="income-value"><%= current_user.income_for_month(@selected_month).sum(:amount_cents) / 100 %></h5>
+        <h5 id="income-value"><%= User.first.income_for_month(@selected_month).sum(:amount_cents) / 100 %></h5>
       </div>
 
       <!-- Tabs -->
@@ -34,7 +34,7 @@
         <div class="info-card-graph" data-id="budgeted">
           <div class="info-card-graph-header">
             <h5>Budgeted</h5>
-            <h5 id="budgeted-value"><%= current_user.budgets_for_month(@selected_month).sum(:amount_cents) / 100 %></h5>
+            <h5 id="budgeted-value"><%= User.first.budgets_for_month(@selected_month).sum(:amount_cents) / 100 %></h5>
           </div>
           <div>
             <canvas id="tab-budgeted-chart" width="100" height="35"></canvas>
@@ -43,7 +43,7 @@
         <div class="info-card-graph active" data-id="balance">
           <div class="info-card-graph-header">
             <h5>Balance</h5>
-            <h5  id="balance-value"><%= current_user.balance_for_month(@selected_month).last %></h5>
+            <h5  id="balance-value"><%= User.first.balance_for_month(@selected_month).last %></h5>
           </div>
           <div>
             <canvas id="tab-balance-chart" width="100" height="35"></canvas>

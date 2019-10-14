@@ -1,5 +1,4 @@
 class DashboardController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:home]
   respond_to :json
 
   def dashboard
@@ -7,7 +6,7 @@ class DashboardController < ApplicationController
   end
 
   def balance_data
-    @balance_data = current_user.balance_for_month(@selected_month)
+    @balance_data = User.first.balance_for_month(@selected_month)
     respond_to do |format|
       format.html { render "balance_data.json" }
       format.js
@@ -35,7 +34,7 @@ class DashboardController < ApplicationController
         AND extract(year from month_from) = ? \
       "
     month_as_date = Date.parse("1 #{@selected_month}")
-    current_user.budgets.where(sql_query, month_as_date.month, month_as_date.year)
+    User.first.budgets.where(sql_query, month_as_date.month, month_as_date.year)
   end
 
   def budgeted_data
@@ -43,7 +42,7 @@ class DashboardController < ApplicationController
     @budgeted_data = []
     @budget_cats = []
     @budget_colors = []
-    current_user.categories.each do |category|
+    User.first.categories.each do |category|
       unless category.no_cat? || category.income?
         budget = current_budgets.find_by(category: category)
         if budget

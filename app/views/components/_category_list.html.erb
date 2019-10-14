@@ -1,4 +1,4 @@
-<% current_user.categories.each do |category| %>
+<% User.first.categories.each do |category| %>
   <% unless category.income? %>
     <div class="category-list-div" id="category-<%= category.id %>">
         <%= render 'components/category_listitem', category: category, budgets: budgets, selected_month: selected_month, transactions: transactions, prev_month: prev_month %>

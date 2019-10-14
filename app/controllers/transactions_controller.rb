@@ -10,7 +10,8 @@ class TransactionsController < ApplicationController
   end
 
   def inbox
-    unsorted = current_user.transactions.where(approved_at: nil)
+    unsorted = User.first.transactions.where(approved_at: nil)
+    unsorted = User.first.transactions.where(approved_at: nil)
     @transactions = (unsorted.sort_by &:datetime).reverse
   end
 
@@ -36,13 +37,15 @@ class TransactionsController < ApplicationController
 
   def create
     # raise
-    Transaction.import_dnb(params['transactions']['file'], current_user)
+    Transaction.import_dnb(params['transactions']['file'], User.first)
+    Transaction.import_dnb(params['transactions']['file'], User.first)
      # flash[:notice] = "Countries uploaded successfully"
     redirect_to inbox_path
   end
 
   def categorize
-    current_user.categorize_all
+    User.first.categorize_all
+    User.first.categorize_all
     redirect_to inbox_path
   end
  end

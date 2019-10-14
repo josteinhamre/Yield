@@ -1,10 +1,10 @@
 document.getElementById("monthSelector").innerHTML = "<%= j @selected_month %>";
 
 (() => {
-  let income = "<%= current_user.income_for_month(@selected_month).sum(:amount_cents) / 100 %>";
+  let income = "<%= User.first.income_for_month(@selected_month).sum(:amount_cents) / 100 %>";
   let spent = "<%= @transactions_no_income.sum(:amount_cents).abs / 100 %>";
-  let budgeted = "<%= current_user.budgets_for_month(@selected_month).sum(:amount_cents) / 100 %>";
-  let balance = "<%= current_user.balance_for_month(@selected_month).last %>";
+  let budgeted = "<%= User.first.budgets_for_month(@selected_month).sum(:amount_cents) / 100 %>";
+  let balance = "<%= User.first.balance_for_month(@selected_month).last %>";
 
 
 

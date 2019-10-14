@@ -16,21 +16,21 @@
 <!-- below this is hidden by default -->
 <style>
   .category-selector-div.display {
-    max-height: <%= ((current_user.categories.count / 5) * 50) + 120  %>px;
+    max-height: <%= ((User.first.categories.count / 5) * 50) + 120  %>px;
   }
   @media screen and (max-width: 1100px) {
     .category-selector-div.display {
-      max-height: <%= ((current_user.categories.count / 3) * 50) + 120  %>px;
+      max-height: <%= ((User.first.categories.count / 3) * 50) + 120  %>px;
     }
   }
   @media screen and (max-width: 800px) {
     .category-selector-div.display {
-      max-height: <%= ((current_user.categories.count / 2) * 50) + 120  %>px;
+      max-height: <%= ((User.first.categories.count / 2) * 50) + 120  %>px;
     }
   }
 </style>
 <div class="category-selector-div" id="row-selector-<%= index %>">
-  <% current_user.categories.each do |category| %>
+  <% User.first.categories.each do |category| %>
     <% unless category.no_cat? || category.income? %>
       <% if category == trans.category %>
         <%= link_to set_category_path(trans, category), method: :patch, remote: true, class: "current", id: "cat-#{trans.id}-#{category.id}" do %>
